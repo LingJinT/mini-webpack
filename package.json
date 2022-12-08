@@ -1,0 +1,24 @@
+{
+  "name": "mini-webpack",
+  "version": "1.0.0",
+  "description": "了解webpack主流程，目标手写一个mini-webpack",
+  "main": "weback.config.js",
+  "directories": {
+    "example": "example"
+  },
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ImDaret/mini-webpack.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ImDaret/mini-webpack/issues"
+  },
+  "homepage": "https://github.com/ImDaret/mini-webpack#readme"
+}
