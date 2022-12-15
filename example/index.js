@@ -1,4 +1,4 @@
-import {foo} from './foo.js';
+import { webpack } from "../src/index.js";
+import config from "./webpack.config.js";
 
-console.log('mini-webpack')
-foo()
+webpack(config);

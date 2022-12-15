@@ -20,5 +20,11 @@
   "bugs": {
     "url": "https://github.com/ImDaret/mini-webpack/issues"
   },
-  "homepage": "https://github.com/ImDaret/mini-webpack#readme"
+  "homepage": "https://github.com/ImDaret/mini-webpack#readme",
+  "dependencies": {
+    "@babel/core": "^7.20.5",
+    "@babel/parser": "^7.20.5",
+    "@babel/traverse": "^7.20.5",
+    "babel-preset-env": "^1.7.0"
+  }
 }
