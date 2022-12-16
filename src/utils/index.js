@@ -4,6 +4,8 @@ import traverse from "@babel/traverse";
 import path from "path";
 import fs from "fs";
 
+let ID = 0
+
 export function buildModuleInfo(_path) {
   // 拿到文件内容
   const source = fs.readFileSync(_path, { encoding: "utf-8" });
@@ -30,21 +32,45 @@ export function buildModuleInfo(_path) {
     path: _path,
     code,
     dependencies,
+    id: ID++, // 模块id
+    mapping: {} // 子模块路径和id的映射关系
   };
 }
 
 export function buildModuleGraph(entry) {
   const graph = [];
   // 根据文件路径，递归dependencies
-  function deep(entry, parentEntry) {
-    const _path = parentEntry
-      ? path.resolve(path.dirname(parentEntry), entry)
+  function deep(entry, parentModuleInfo) {
+    const _path = parentModuleInfo
+      ? path.resolve(path.dirname(parentModuleInfo.path), entry)
       : entry;
     // buildModuleInfo 输入文件路径，输出模块信息
     const moduleInfo = buildModuleInfo(_path);
+    if(parentModuleInfo) {
+      // 给父模块加上依赖项的映射，方便后面替换require
+      parentModuleInfo.mapping[entry] = moduleInfo.id
+    }
     graph.push(moduleInfo);
-    moduleInfo.dependencies.forEach((str) => deep(str, moduleInfo.path));
+    moduleInfo.dependencies.forEach((str) => deep(str, moduleInfo));
   }
   deep(entry);
   return graph;
+}
+
+export function createBundle(modules) {
+  console.log('modules:',modules);
+  return `(function (modules) {
+    function require(id) {
+      const {fn, mapping} = modules[id]
+
+      function _require(path) {
+        return require(mapping[path])
+      }
+
+      const module = {exports:{}}
+
+      fn(_require, module, module.exports)
+    }
+    require(0)
+  })(${modules})`
 }
