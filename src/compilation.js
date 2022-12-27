@@ -1,0 +1,3 @@
+class Compilation {
+  constructor() {}
+}
