@@ -25,6 +25,7 @@
     "@babel/core": "^7.20.5",
     "@babel/parser": "^7.20.5",
     "@babel/traverse": "^7.20.5",
-    "babel-preset-env": "^1.7.0"
+    "babel-preset-env": "^1.7.0",
+    "tapable": "^2.2.1"
   }
 }
