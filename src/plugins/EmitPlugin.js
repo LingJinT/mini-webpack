@@ -30,3 +30,5 @@ class EmitPlugin {
     });
   }
 }
+
+export default EmitPlugin;
