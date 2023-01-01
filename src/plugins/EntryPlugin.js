@@ -42,20 +42,21 @@ class EntryPlugin {
 
   buildModuleGraph(entry) {
     const graph = [];
+    // let that = this;
     // 根据文件路径，递归dependencies
-    function deep(entry, parentModuleInfo) {
+    const deep = ((entry, parentModuleInfo) => {
       const _path = parentModuleInfo
         ? path.resolve(path.dirname(parentModuleInfo.path), entry)
         : entry;
       // buildModuleInfo 输入文件路径，输出模块信息
-      const moduleInfo = buildModuleInfo(_path);
+      const moduleInfo = this.buildModuleInfo(_path);
       if (parentModuleInfo) {
         // 给父模块加上依赖项的映射，方便后面替换require
         parentModuleInfo.mapping[entry] = moduleInfo.id;
       }
       graph.push(moduleInfo);
       moduleInfo.dependencies.forEach((str) => deep(str, moduleInfo));
-    }
+    }).bind(this);
     deep(entry);
     return graph;
   }

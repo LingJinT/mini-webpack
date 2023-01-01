@@ -1,4 +1,4 @@
-import Compilation from "./compilation";
+import Compilation from "./compilation.js";
 import { AsyncParallelHook, AsyncSeriesHook, SyncHook } from "tapable";
 
 export class Compiler {
