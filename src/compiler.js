@@ -3,9 +3,10 @@ import { AsyncParallelHook, AsyncSeriesHook, SyncHook } from "tapable";
 
 export class Compiler {
   constructor(config) {
-    const { entry, output } = config;
+    const { entry, output, module } = config;
     this.entry = entry;
     this.output = output;
+    this.loaders = module?.rules || [];
     this.hooks = {
       make: new AsyncParallelHook(["compilation"]),
       compilation: new SyncHook(["compilation"]),
