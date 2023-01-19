@@ -89,7 +89,8 @@ plugin: 贯穿整个 webpack 流程，可以订阅不同的生命周期，做相
 
 11. webpack优化构建体积
 
-- treeSharking
+- Tree Sharking
+- Scope Hoisting(解决必包带来的作用域过多问题)
 - 压缩代码terser、uglify
 - 提取公共资源（node_modules、manifest、runtime等）
 - CDN
