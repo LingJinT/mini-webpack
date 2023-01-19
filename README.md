@@ -56,22 +56,42 @@ plugin: 贯穿整个 webpack 流程，可以订阅不同的生命周期，做相
 
 7. webpack热更新原理
 
+1、注入runtime
+2、客户端与服务端建立websocket
+3、服务端监听文件变化，一旦有变化通过socket通知客户端
+4、客户端收到通知，先发送 manifest 请求返回变动文件，再利用jsonp请求变动的文件后立即执行
+5、客户端拿到变动的文件，替换掉原有文件
+
 8. webpack treeSharking原理
 
 得益于第四点提到的esModule支持静态分析模块之间的依赖关系，才能实现treeSharking。总的流程可以概括为：分析、标记、清除
 
 分析：在make阶段，利用AST语法树分析依赖模块，在seal阶段将使用到的依赖设为已被使用
 
-标记：读取使用信息，将未使用的依赖标记为unused
+标记：读取使用信息，将未使用的依赖标记为unused harmony export
 
 清除：由Terser清除
+
+可能失效的典型情况：
+- babel对esModule进行了转换
+- 模块本身有副作用，比如更改了window上的值
 
 9. webpack如何做异步加载
 
 与CMD模块规范类似，遵循就近原则，有兴趣可以去了解CMD模块规范如何解决异步加载问题的。
 
-10. webpack优化打包策略
+10. webpack提升构建速度
 
+- 构建缓存
+- 缩小打包范围（exclude、include等）
+- 多线程构建
+- 使用高版本的webpack
 
+11. webpack优化构建体积
 
-
+- treeSharking
+- 压缩代码terser、uglify
+- 提取公共资源（node_modules、manifest、runtime等）
+- CDN
+- 图片处理、压缩（base64、URL）
+- 动态polyfill
