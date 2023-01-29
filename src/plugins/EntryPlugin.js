@@ -19,7 +19,7 @@ class EntryPlugin {
       compilation,
     };
     // 找到对应要触发的loader
-    const loaders = _loaders.find((item) => item.test(_path))?.loader;
+    const loaders = _loaders.find((item) => item.test.test(_path))?.use;
     // 从右向左执行loader
     const source =
       loaders?.reduceRight((fileSource, loader) => {
@@ -41,7 +41,7 @@ class EntryPlugin {
     // 利用@babel/core 把里面的 import 替换成 require
     const { code } = transformFromAst(ast, null, {
       // 需要使用 babel-preset-env
-      presets: ["env"],
+      presets: ["@babel/preset-env"],
     });
 
     return {
@@ -56,7 +56,6 @@ class EntryPlugin {
   buildModuleGraph(compiler, compilation) {
     const { entry } = compiler;
     const graph = [];
-    // let that = this;
     // 根据文件路径，递归dependencies
     const deep = ((entry, parentModuleInfo) => {
       const _path = parentModuleInfo
