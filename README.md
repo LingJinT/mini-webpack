@@ -1,7 +1,7 @@
 # mini-webpack
 ## 前言
 
-本文主要带大家了解 webpack 主流程，目标是手写一个 mini-webpack，具体请参考源码
+本文主要带大家了解 webpack 主流程，目标是手写一个 mini-webpack，具体请参考源码。
 
 ## FAQ
 
